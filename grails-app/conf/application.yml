@@ -1,0 +1,44 @@
+grails:
+    profile: rest-api
+    codegen:
+        defaultPackage: bug.multitenancy
+    spring:
+        transactionManagement:
+            proxies: false
+    gorm:
+        failOnError: true
+        multiTenancy:
+            mode: SCHEMA
+            tenantResolverClass: bug.CustomTenantResolver
+            defaultTenant: _default
+info:
+    app:
+        name: '@info.app.name@'
+        version: '@info.app.version@'
+        grailsVersion: '@info.app.grailsVersion@'
+spring:
+    main:
+        banner-mode: "off"
+    groovy:
+        template:
+            check-template-location: false
+
+hibernate:
+    cache:
+        queries: false
+        use_second_level_cache: true
+        use_query_cache: false
+        region.factory_class: org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory
+    flush:
+         mode: AUTO
+
+dataSource:
+  pooled: true
+  jmxExport: true
+  driverClassName: org.postgresql.Driver
+  dialect: org.hibernate.dialect.PostgreSQL94Dialect
+  schemaHandler: bug.CustomSchemaHandler
+  #dbCreate: create-drop
+  url: jdbc:postgresql://localhost:5432/bugtest
+  username: bugtest
+  password: bugtest
